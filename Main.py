@@ -1,13 +1,13 @@
-
+from Database import database
 
 def add_contact():
     print("\n---Add--New--Contact---")
-    Name = input("Enter Name: ").strip()
-    Phone_no = int(input("Enter Phone Number: "))
-    Address = input("Enter Address: ").strip()
-    City = input("Enter City: ").strip()
-    Pincode = int(input("Enter Pincode: "))
-    insert_contact(name, phone, address, city, pincode)
+    name = input("Enter Name: ").strip()
+    phone = int(input("Enter Phone Number: "))
+    address = input("Enter Address: ").strip()
+    city = input("Enter City: ").strip()
+    pincode = int(input("Enter Pincode: "))
+    database.insert_contact(name, phone, address, city, pincode)
 
 def add_multiple_contacts():
     pass
@@ -25,6 +25,7 @@ def delete_all():
     pass
 
 def main():
+    database.init_database()
     while True:
         print("----------------------------")
         print("_____Phonebook__Manager_____")
