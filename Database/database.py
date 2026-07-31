@@ -10,23 +10,26 @@ def init_database():
     if not os.path.exists(FOLDER_NAME):
         os.mkdir(FOLDER_NAME)
     
-    conn = sqlite3.connect(DATABASE_NAME)
-    cursor = conn.cursor()
+    with sqlite3.connect(DATABASE_NAME) as conn:
+        cursor = conn.cursor()
 
-    cursor.execute(
-        """
-            CREATE TABLE IF NOT EXISTS Phonebook_data(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT NOT NULL,
-            Phone_no INTEGER,
-            Address TEXT,
-            City TEXT,
-            Pincode INTEGER)
-        """
-    )
+        cursor.execute(
+            """
+                CREATE TABLE IF NOT EXISTS Phonebook_data(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name TEXT NOT NULL,
+                Phone_no INTEGER,
+                Address TEXT,
+                City TEXT,
+                Pincode INTEGER)
+            """
+        )
 
-    conn.commit()
-    conn.close()
-    print("Database aur Tables setup ho gaye hain!")
-
-init_database()
+def insert_contact(name, phone, address="", city="",pincode=""):
+    with sqlite3.connect(DATABASE_NAME) as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            """ INSERT INTO Phonebook_data (Name, Phone_no, Address, City, Pincode) VALUES(?,?,?,?,?)
+            """,(name, phone, address, city, pincode),
+        )
+        conn.commit()

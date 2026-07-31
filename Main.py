@@ -1,7 +1,13 @@
 
 
 def add_contact():
-    pass
+    print("\n---Add--New--Contact---")
+    Name = input("Enter Name: ").strip()
+    Phone_no = int(input("Enter Phone Number: "))
+    Address = input("Enter Address: ").strip()
+    City = input("Enter City: ").strip()
+    Pincode = int(input("Enter Pincode: "))
+    insert_contact(name, phone, address, city, pincode)
 
 def add_multiple_contacts():
     pass
