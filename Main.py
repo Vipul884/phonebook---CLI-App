@@ -10,10 +10,21 @@ def add_contact():
     database.insert_contact(name, phone, address, city, pincode)
 
 def add_multiple_contacts():
-    pass
+    print("\n---Add--Multiple--Contacts---")
+    try:
+        nums = int(input("Enter the numbers how many contacts do you want to add?: "))
 
-def search_contact():
-    pass
+        for i in range(1, nums+1):
+            add_contact()
+    except:
+        print("Invalid input Please ebter only numbers.")
+
+def view_all():
+    database.view()
+
+# def search_contact():
+#     name = input("Enter name to search the contact?: ")
+
 
 def edit_contact():
     pass
@@ -36,7 +47,8 @@ def main():
         print("4. Edit Contact")
         print("5. Delete Contact")
         print("6. Delete all")
-        print("7. Exit")
+        print("7. View all")
+        print("8. Exit")
         choice = input("Select Options.. ")
         match choice:
             case "1":
@@ -44,7 +56,7 @@ def main():
             case "2":
                 add_multiple_contacts()
             case "3":
-                search_contact()
+                database.search_contact()
             case "4":
                 edit_contact()
             case "5":
@@ -52,6 +64,8 @@ def main():
             case "6":
                 delete_all()
             case "7":
+                view_all()
+            case "8":
                 break
             case _:
                 print("Invalid Choice..")

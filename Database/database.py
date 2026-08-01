@@ -33,3 +33,51 @@ def insert_contact(name, phone, address="", city="",pincode=""):
             """,(name, phone, address, city, pincode),
         )
         conn.commit()
+
+def view():
+    with sqlite3.connect(DATABASE_NAME) as conn:
+        cursor = conn.cursor()
+        cursor.execute(""" 
+        SELECT * FROM Phonebook_data;
+        
+        """)
+        data = cursor.fetchall()
+        for id, name, phone, address, city, pincode in data:
+            print(f"ID: {id} | Name: {name} | Phone no: {phone} | Address: {address} | City: {city} | Pincode: {pincode}")
+
+def search_contact():
+    choice = input("Search by Name / Phone / Address / City / Pincode ?:  ").lower()
+
+    value = input("Enter the Value: ")
+
+    with sqlite3.connect(DATABASE_NAME) as conn:
+        cursor = conn.cursor()
+        
+        if choice == "name":
+            query = "SELECT * FROM Phonebook_data WHERE LOWER(Name) LIKE LOWER(?);"
+            search_value = f"%{value}%"
+        elif choice == "phone":
+            query = "SELECT * FROM Phonebook_data WHERE Phone_no =?;"
+            search_value = value
+        elif choice == "address":
+            query = "SELECT * FROM Phonebook_data WHERE Address =?;"
+            search_value = value
+        elif choice == "city":
+            query = "SELECT * FROM Phonebook_data WHERE LOWER(City) =?;"
+            search_value = value
+        elif choice == "pincode":
+            query = "SELECT * FROM Phonebook_data WHERE Pincode =?;"
+            search_value = value
+        else:
+            print("Invalid Choice")
+            return
+
+        cursor.execute(query,(search_value,))
+        data = cursor.fetchall()
+
+        if data:
+            for id, name, phone, address, city, pincode in data:
+                print(f"ID: {id} | Name: {name} | Phone no: {phone} | Address: {address} | City: {city} | Pincode: {pincode}")
+        else:
+            print(f"No Record Found with this {choice}: {value} !")
+
