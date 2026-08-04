@@ -42,9 +42,12 @@ def view():
         
         """)
         data = cursor.fetchall()
+        print(f"{'ID':<5} {'Name':<20} {'Phone':<15} {'Address':<25} {'City':<15} {'Pincode':<10}")
+        print("-" * 95)
+        
         for id, name, phone, address, city, pincode in data:
-            print(f"ID: {id} | Name: {name} | Phone no: {phone} | Address: {address} | City: {city} | Pincode: {pincode}")
-
+            print(f"{id:<5} {name:<20} {phone:<15} {address:<25} {city:<15} {pincode:<10}")
+            
 def search_contact():
     choice = input("Search by Name / Phone / Address / City / Pincode ?:  ").lower()
 
@@ -76,8 +79,10 @@ def search_contact():
         data = cursor.fetchall()
 
         if data:
+            print(f"{'ID':<5} {'Name':<20} {'Phone':<15} {'Address':<25} {'City':<15} {'Pincode':<10}")
+            print("-" * 95)
             for id, name, phone, address, city, pincode in data:
-                print(f"ID: {id} | Name: {name} | Phone no: {phone} | Address: {address} | City: {city} | Pincode: {pincode}")
+                print(f"{id:<5} {name:<20} {phone:<15} {address:<25} {city:<15} {pincode:<10}")
         else:
             print(f"No Record Found with this {choice}: {value} !")
 
