@@ -33,7 +33,22 @@ def delete_contact():
     pass
 
 def delete_all():
-    pass
+    print("\n---Delete--All--Contacts---")
+    
+    user_input = input("Are you sure to Delete all Contacts (yes/no)?" ).casefold()
+
+    if user_input.strip() == "yes":
+        user_input2 = input("Are sure you can't restore once action done..(yes/no)?" ).casefold()
+        if user_input2.strip() == "yes":
+            print("All Contacts Deleted")
+            database.delete_all()
+        else:
+            print("Invalid Input")
+    else:
+        print("Invalid Input Please Enter only Yes or No..")
+               
+    
+
 
 def main():
     database.init_database()

@@ -86,3 +86,14 @@ def search_contact():
         else:
             print(f"No Record Found with this {choice}: {value} !")
 
+def delete_all():
+    try:
+        with sqlite3.connect(DATABASE_NAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+            DELETE * FROM Phonebook_data; 
+            """)
+            conn.commit()
+    
+    except Exception as e:
+        print(f"Error in Database: {e}")
