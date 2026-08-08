@@ -97,3 +97,56 @@ def delete_all():
     
     except Exception as e:
         print(f"Error in Database: {e}")
+
+
+def edit_contact():
+
+    try:
+        value = input("Enter the Name of contact you want to edit ?:  ").lower()
+
+        with sqlite3.connect(DATABASE_NAME) as conn:
+            cursor = conn.cursor()
+            query = "SELECT * FROM Phonebook_data WHERE LOWER(Name) LIKE LOWER(?);"
+            search_value = f"%{value}%"
+            cursor.execute(query,(search_value,))
+            data = cursor.fetchall()
+
+            if data:
+                print(f"{'ID':<5} {'Name':<20} {'Phone':<15} {'Address':<25} {'City':<15} {'Pincode':<10}")
+                print("-" * 95)
+                for id, name, phone, address, city, pincode in data:
+                    print(f"{id:<5} {name:<20} {phone:<15} {address:<25} {city:<15} {pincode:<10}")
+            
+            
+                # SELECT ID 
+                print("-" * 95)
+                select_id = input("Enter ID of Contact you want to Edit: ")
+
+                # NEW_INFORMATION
+                name = input("Enter Name: ").strip()
+                phone = int(input("Enter Phone Number: "))
+                address = input("Enter Address: ").strip()
+                city = input("Enter City: ").strip()
+                pincode = int(input("Enter Pincode: "))
+
+                update_query = """
+                UPDATE Phonebook_data 
+                SET Name =?,
+                    Phone_no =?, 
+                    Address =?, 
+                    City =?,
+                    Pincode =?
+                WHERE ID =?;
+                """
+                cursor.execute(update_query,(name,phone,address,city,pincode,select_id))
+                conn.commit()
+                print("\nContact updated successfully!") 
+            else:
+                print(f"No Record Found with this name: {value}!")
+    
+    except Exception as e:
+        print("ERROR ! Occured:", e)
+
+
+        
+

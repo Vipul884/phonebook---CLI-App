@@ -19,15 +19,6 @@ def add_multiple_contacts():
     except:
         print("Invalid input Please ebter only numbers.")
 
-def view_all():
-    database.view()
-
-# def search_contact():
-#     name = input("Enter name to search the contact?: ")
-
-
-def edit_contact():
-    pass
 
 def delete_contact():
     pass
@@ -73,13 +64,13 @@ def main():
             case "3":
                 database.search_contact()
             case "4":
-                edit_contact()
+                database.edit_contact()
             case "5":
                 delete_contact()
             case "6":
                 delete_all()
             case "7":
-                view_all()
+                database.view()
             case "8":
                 break
             case _:
