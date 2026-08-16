@@ -20,16 +20,15 @@ def add_multiple_contacts():
         print("Invalid input Please ebter only numbers.")
 
 
-def delete_contact():
-    pass
+
 
 def delete_all():
     print("\n---Delete--All--Contacts---")
     
-    user_input = input("Are you sure to Delete all Contacts (yes/no)?" ).casefold()
+    user_input = input("Are you sure to Delete all Contacts (yes/no)?: ").casefold()
 
     if user_input.strip() == "yes":
-        user_input2 = input("Are sure you can't restore once action done..(yes/no)?" ).casefold()
+        user_input2 = input("Sure you can't restore once action done..(yes/no)?: ").casefold()
         if user_input2.strip() == "yes":
             print("All Contacts Deleted")
             database.delete_all()
@@ -66,7 +65,7 @@ def main():
             case "4":
                 database.edit_contact()
             case "5":
-                delete_contact()
+                database.delete_contact()
             case "6":
                 delete_all()
             case "7":

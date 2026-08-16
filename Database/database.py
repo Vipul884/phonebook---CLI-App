@@ -91,7 +91,7 @@ def delete_all():
         with sqlite3.connect(DATABASE_NAME) as conn:
             cursor = conn.cursor()
             cursor.execute("""
-            DELETE * FROM Phonebook_data; 
+            DELETE FROM Phonebook_data; 
             """)
             conn.commit()
     
@@ -146,6 +146,39 @@ def edit_contact():
     
     except Exception as e:
         print("ERROR ! Occured:", e)
+
+def delete_contact():
+    try:
+        value_delete = input("Enter the Name of contact you want to edit ?:  ").lower()
+
+        with sqlite3.connect(DATABASE_NAME) as conn:
+            cursor = conn.cursor()
+            search_query = """ SELECT * FROM Phonebook_data WHERE LOWER(NAME) LIKE LOWER(?); """
+            search_value = f"%{value_delete}%"
+            cursor.execute(search_query,(search_value,))
+            data = cursor.fetchall()
+
+            if data:
+                print(f"{'ID':<5} {'Name':<20} {'Phone':<15} {'Address':<25} {'City':<15} {'Pincode':<10}")
+                print("-" * 95)
+                for id, name, phone, address, city, pincode in data:
+                    print(f"{id:<5} {name:<20} {phone:<15} {address:<25} {city:<15} {pincode:<10}")
+
+                # SELECT ID 
+                print("-" * 95)
+                select_id = input("Enter ID of Contact you want to Delete: ")
+
+                delete_query = """DELETE FROM Phonebook_data WHERE ID =?;"""
+                cursor.execute(delete_query,(select_id))
+                conn.commit()
+                print("\nContact deleted successfully")
+    
+    except Exception as e:
+        print("ERROR ! Occured:", e)
+
+            
+
+
 
 
         
