@@ -67,7 +67,7 @@ def search_contact():
             search_value = value
         elif choice == "city":
             query = "SELECT * FROM Phonebook_data WHERE LOWER(City) =?;"
-            search_value = value
+            search_value = value.lower()
         elif choice == "pincode":
             query = "SELECT * FROM Phonebook_data WHERE Pincode =?;"
             search_value = value
@@ -169,7 +169,7 @@ def delete_contact():
                 select_id = input("Enter ID of Contact you want to Delete: ")
 
                 delete_query = """DELETE FROM Phonebook_data WHERE ID =?;"""
-                cursor.execute(delete_query,(select_id))
+                cursor.execute(delete_query,(select_id,))
                 conn.commit()
                 print("\nContact deleted successfully")
     
